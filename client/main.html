@@ -1,0 +1,139 @@
+<head>
+  <title>Agenda</title>
+
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
+  />
+  <link
+    href="https://fonts.googleapis.com/icon?family=Material+Icons"
+    rel="stylesheet"
+  />
+</head>
+
+<body>
+  <header>
+    <nav class="red">
+      <div class="nav-extended">
+        <a href="#" class="brand-logo">Agenda Crud</a>
+        <ul id="nav-mobile" class="right hide-on-med-and-down">
+          <li class="nav-item">
+            <a
+              id="a_modal"
+              class="waves-effect waves-light btn modal-trigger"
+              href="#addModal"
+            >
+              Incluir
+            </a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </header>
+  <div class="container">{{> edit}} {{> data_table}}</div>
+  {{> add}}
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  <script>
+    $(document).ready(function () {
+      $('#a_modal').click(function () {
+        $('.modal').modal();
+      });
+    });
+  </script>
+</body>
+
+<template name="data_table">
+  <table class="responsive-table" method="post" action="">
+    <tr>
+      <th>Nome</th>
+      <th>Sobrenome</th>
+      <th>Email</th>
+      <th>Telefone</th>
+      <th></th>
+      <th></th>
+    </tr>
+    {{#each crud_tip_brasil}}
+    <tr key="{{_id}}">
+      <td>{{text.nome}}</td>
+      <td>{{text.sobrenome}}</td>
+      <td>{{text.email}}</td>
+      <td>{{text.telefone}}</td>
+      <td>
+        <button
+          id="btn-edit"
+          type="button"
+          class="btn waves-effect waves-light"
+        >
+          <i class="material-icons">edit</i>
+        </button>
+
+        <button id="btn-delete" class="btn waves-effect waves-light" btn-small>
+          <i class="material-icons">delete</i>
+        </button>
+      </td>
+    </tr>
+    {{/each}}
+  </table>
+</template>
+
+<template name="add">
+  <!-- Modal Structure -->
+  <div id="addModal" class="modal">
+    <div class="modal-content">
+      <h4>Cliente:</h4>
+      <form class="add-form">
+        <input type="text" name="nome" placeholder="Nome" />
+        <input type="text" name="sobrenome" placeholder="Sobre Nome" />
+        <input type="text" name="emil" placeholder="Email" />
+        <input type="number" name="telefone" placeholder="Telefone" />
+        <button class="btn btn-success">Salvar</button>
+      </form>
+    </div>
+  </div>
+</template>
+
+<template name="edit">
+  <div class="row">
+    <h4>Editar:</h4>
+    <form id="form-edit">
+      <table class="responsive-table" method="post" action="">
+        <tr>
+          <th>Nome</th>
+          <th>Sobrenome</th>
+          <th>Email</th>
+          <th>Telefone</th>
+        </tr>
+
+        <tr id="edit_row">
+          <td>
+            <input type="text" id="edit_nome" placeholder="Nome" />
+          </td>
+          <td>
+            <input type="text" id="edit_sobrenome" placeholder="Sobre Nome" />
+          </td>
+          <td>
+            <input type="text" id="edit_email" placeholder="Email" />
+          </td>
+          <td>
+            <input type="number" id="edit_telefone" placeholder="Telefone" />
+          </td>
+          <td>
+            <input
+              type="text"
+              id="campo-oculto"
+              hidden
+              placeholder="campo oculto"
+            />
+          </td>
+          <td>
+            <button type="button" id="btn-atualiza" class="btn btn-success">
+              Alterar
+            </button>
+          </td>
+        </tr>
+      </table>
+    </form>
+  </div>
+</template>
